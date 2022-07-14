@@ -1,7 +1,14 @@
 {
-    "name": "chipslays/anekdot-api",
+    "name": "khlystou/anekdot-ru-api",
     "description": "Anekdot.ru Wrapper (Unoffical API)",
     "type": "library",
     "license": "MIT",
-    "require": {}
+    "require": {
+        "php": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Khlystou\\AnekdotRuApi\\": "src/"
+        }
+    }
 }

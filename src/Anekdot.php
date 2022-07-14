@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '/libs/image.class.php';
+
+namespace Khlystou\AnekdotRuApi;
 
 class Anekdot
 {
@@ -28,7 +29,7 @@ class Anekdot
 
 		if ($count > 15 || $count <= 0)
 		{
-			self::response(self::message('$count должен быть от 1 до 15.', 2));
+			self::response(self::message('$count должен быть от 1 до 15.', 2), '');
 		}
 
 		$day = $day == null ? date("d") : $day;
@@ -39,7 +40,7 @@ class Anekdot
 
 		$html = self::request(self::BASE_URL_PATH . $PATH . $DATE);
 
-		preg_match_all('/<div class="topicbox"(.+?)<\/div><\/div><\/div>/mi', $html, $response);
+		preg_match_all('/<div class="topicbox"(.+?)<\/div><\/div><\/div>/mi', (string) $html, $response);
 
 		$data = [];
 
@@ -130,12 +131,12 @@ class Anekdot
 
 		if ($count > 21 || $count <= 0)
 		{
-			self::response(self::message('$count должен быть от 1 до 21.', 2));
+			self::response(self::message('$count должен быть от 1 до 21.', 2), '');
 		}
 
 		$html = self::request(self::BASE_URL_PATH . $PATH);
 
-		preg_match_all('/<div class="topicbox"(.+?)<\/div><\/div><\/div>/mi', $html, $response);
+		preg_match_all('/<div class="topicbox"(.+?)<\/div><\/div><\/div>/mi', (string) $html, $response);
 
 		$data = [];
 
@@ -204,12 +205,12 @@ class Anekdot
 	{
 		if (count($data) == 0)
 		{
-			self::response(self::message('Аргумент $data пустой.', 2));
+			self::response(self::message('Аргумент $data пустой.', 2), '');
 		}
 
 		if (count($blacklist) == 0)
 		{
-			self::response(self::message('Аргумент $blacklist пустой.', 2));
+			self::response(self::message('Аргумент $blacklist пустой.', 2), '');
 		}
 
 		if (mb_strtolower($type) == 'tags')
@@ -284,24 +285,24 @@ class Anekdot
 	 *
 	 * @return object 		Magic
 	 */
-	public static function createImage($text, $path, $params = [])
-	{
-		$img = new Priler\Text2Image\Magic($text);
+	// public static function createImage($text, $path, $params = [])
+	// {
+	// 	$img = new Priler\Text2Image\Magic($text);
 
-		$img->set_mode($params['mode']);
-		$img->add_font('font', $params['font']);
-		$img->font = $img->get_font('font');
-		$img->text_size = $params['text_size'];
-		$img->background_color = $params['background_color'];
-		$img->text_color = $params['text_color'];
-		$img->padding = $params['padding'];
-		$img->width = $params['width'];
-		$img->line_height = $params['line_height'];
+	// 	$img->set_mode($params['mode']);
+	// 	$img->add_font('font', $params['font']);
+	// 	$img->font = $img->get_font('font');
+	// 	$img->text_size = $params['text_size'];
+	// 	$img->background_color = $params['background_color'];
+	// 	$img->text_color = $params['text_color'];
+	// 	$img->padding = $params['padding'];
+	// 	$img->width = $params['width'];
+	// 	$img->line_height = $params['line_height'];
 
-		$img->save($path, 'jpg', 90);
+	// 	$img->save($path, 'jpg', 90);
 
-		return $img;
-	}
+	// 	return $img;
+	// }
 
 	/* Получение контента страницы */
 	private static function request($url)
